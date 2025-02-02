@@ -1,0 +1,10 @@
+<library path="zsmall_firmware">
+    <class name="zsmall_firmware/zsmallInterface"
+      type="zsmall_firmware::zsmallInterface"
+      base_class_type="hardware_interface::SystemInterface"
+    >
+      <description>
+        zsmall Hardware Interface
+      </description>
+    </class>
+  </library>
