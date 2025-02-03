@@ -113,17 +113,8 @@ def generate_launch_description():
                     {"wheel_radius": wheel_radius,
                     "wheel_separation": wheel_separation,
                     "use_sim_time": use_sim_time}],
-                condition=IfCondition(use_python),
             ),
-            Node(
-                package="zsmall_controller",
-                executable="simple_controller",
-                parameters=[
-                    {"wheel_radius": wheel_radius,
-                    "wheel_separation": wheel_separation,
-                    "use_sim_time": use_sim_time}],
-                condition=UnlessCondition(use_python),
-            ),
+
         ]
     )
 
