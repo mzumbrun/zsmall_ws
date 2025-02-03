@@ -7,7 +7,6 @@ from launch.conditions import UnlessCondition, IfCondition
 
 def noisy_controller(context, *args, **kwargs):
     use_sim_time = LaunchConfiguration("use_sim_time")
-    use_python = LaunchConfiguration("use_python")
     wheel_radius = float(LaunchConfiguration("wheel_radius").perform(context))
     wheel_separation = float(LaunchConfiguration("wheel_separation").perform(context))
     wheel_radius_error = float(LaunchConfiguration("wheel_radius_error").perform(context))
@@ -20,22 +19,12 @@ def noisy_controller(context, *args, **kwargs):
             {"wheel_radius": wheel_radius + wheel_radius_error,
              "wheel_separation": wheel_separation + wheel_separation_error,
              "use_sim_time": use_sim_time}],
-        condition=IfCondition(use_python),
     )
 
-    noisy_controller_cpp = Node(
-        package="zsmall_controller",
-        executable="noisy_controller",
-        parameters=[
-            {"wheel_radius": wheel_radius + wheel_radius_error,
-             "wheel_separation": wheel_separation + wheel_separation_error,
-             "use_sim_time": use_sim_time}],
-        condition=UnlessCondition(use_python),
-    )
 
     return [
         noisy_controller_py,
-        noisy_controller_cpp,
+
     ]
 
 
@@ -51,10 +40,7 @@ def generate_launch_description():
         "use_simple_controller",
         default_value="True",
     )
-    use_python_arg = DeclareLaunchArgument(
-        "use_python",
-        default_value="True",
-    )
+
     wheel_radius_arg = DeclareLaunchArgument(
         "wheel_radius",
         default_value="0.033",
@@ -74,7 +60,6 @@ def generate_launch_description():
     
     use_sim_time = LaunchConfiguration("use_sim_time")
     use_simple_controller = LaunchConfiguration("use_simple_controller")
-    use_python = LaunchConfiguration("use_python")
     wheel_radius = LaunchConfiguration("wheel_radius")
     wheel_separation = LaunchConfiguration("wheel_separation")
 
@@ -148,7 +133,6 @@ def generate_launch_description():
         [
             use_sim_time_arg,
             use_simple_controller_arg,
-            use_python_arg,
             wheel_radius_arg,
             wheel_separation_arg,
             wheel_radius_error_arg,

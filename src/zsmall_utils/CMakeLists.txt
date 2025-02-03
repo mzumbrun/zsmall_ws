@@ -17,13 +17,10 @@ find_package(twist_mux_msgs REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(visualization_msgs REQUIRED)
 
-add_executable(safety_stop src/safety_stop.cpp)
-ament_target_dependencies(safety_stop rclcpp std_msgs sensor_msgs geometry_msgs twist_mux_msgs rclcpp_action visualization_msgs)
 
 ament_python_install_package(${PROJECT_NAME})
 
 install(TARGETS
-  safety_stop
   DESTINATION lib/${PROJECT_NAME}
 )
 

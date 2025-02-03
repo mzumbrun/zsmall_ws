@@ -9,8 +9,6 @@ from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 
 def generate_launch_description():
     
-    zsmall_mapping_pkg = get_package_share_directory('zsmall_mapping')
-
     use_sim_time = LaunchConfiguration("use_sim_time")
     slam_config = LaunchConfiguration("slam_config")
     lifecycle_nodes = ["map_saver_server"]
@@ -45,17 +43,6 @@ def generate_launch_description():
         ],
     )
     
-    slam_toolbox = Node(
-        package="slam_toolbox",
-        executable="sync_slam_toolbox_node",
-        name="slam_toolbox",
-        output="screen",
-        parameters=[
-            slam_config,
-            {"use_sim_time": use_sim_time},
-        ],
-    )
-   
     jazzy_slam_toolbox_launch = IncludeLaunchDescription(
         os.path.join(
             get_package_share_directory("slam_toolbox"),
@@ -84,7 +71,6 @@ def generate_launch_description():
         use_sim_time_arg,
         slam_config_arg,
         nav2_map_saver,
-        #slam_toolbox,
         jazzy_slam_toolbox_launch,
         nav2_lifecycle_manager,
     ])

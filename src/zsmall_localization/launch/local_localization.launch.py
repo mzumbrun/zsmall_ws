@@ -1,20 +1,11 @@
 from launch import LaunchDescription
 from ament_index_python.packages import get_package_share_directory
 from launch_ros.actions import Node
-from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
-from launch.conditions import UnlessCondition, IfCondition
 import os
 
 def generate_launch_description():
 
-    use_python_arg = DeclareLaunchArgument(
-        "use_python",
-        default_value="True",
-    )
-
-    use_python = LaunchConfiguration("use_python")
-
+  
     static_transform_publisher = Node(
         package="tf2_ros",
         executable="static_transform_publisher",
@@ -35,19 +26,13 @@ def generate_launch_description():
     imu_republisher_py = Node(
         package="zsmall_localization",
         executable="imu_republisher.py",
-        condition=IfCondition(use_python),
+  
     )
 
-    imu_republisher_cpp = Node(
-        package="zsmall_localization",
-        executable="imu_republisher",
-        condition=UnlessCondition(use_python),
-    )
-
+ 
     return LaunchDescription([
-        use_python_arg,
         static_transform_publisher,
         robot_localization,
         imu_republisher_py,
-        imu_republisher_cpp,   
+ 
     ])
