@@ -39,16 +39,18 @@
         </joint>
     </ros2_control>
 
-    <ros2_control name="LeftArm" type="system">
+    <!-- include the manipulator arm-->
+    <xacro:if value="$(arg use_arm)">
 
-        <!-- ros2_control Real Robot -->
-        <xacro:unless value="$(arg is_sim)">
-            <hardware>
-                <plugin>pca9685_hardware_interface/Pca9685SystemHardware</plugin>
-            </hardware>
-        </xacro:unless>
+        <ros2_control name="LeftArm" type="system">
 
-        <xacro:if value="$(arg use_arm)">
+            <!-- ros2_control Real Robot -->
+            <xacro:unless value="$(arg is_sim)">
+                <hardware>
+                    <plugin>pca9685_hardware_interface/Pca9685SystemHardware</plugin>
+                </hardware>
+            </xacro:unless>
+
             <!-- ros2_control Common Interfaces -->
             <joint name="joint_1">
                 <command_interface name="position">
@@ -80,9 +82,10 @@
                     <param name="max">0</param>
                 </command_interface>
                 <state_interface name="position" />
-            </joint>
-        </xacro:if>
-        
-    </ros2_control>
+            </joint>  
+
+        </ros2_control>
+
+    </xacro:if>
 
 </robot>
