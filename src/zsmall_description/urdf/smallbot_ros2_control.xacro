@@ -48,39 +48,40 @@
             </hardware>
         </xacro:unless>
 
-        <!-- ros2_control Common Interfaces -->
-        <joint name="joint_1">
-            <command_interface name="position">
-              <param name="min">-1.57</param>
-              <param name="max">1.57</param>
-            </command_interface>
-            <state_interface name="position" />
-        </joint>
+        <xacro:if value="$(arg use_arm)">
+            <!-- ros2_control Common Interfaces -->
+            <joint name="joint_1">
+                <command_interface name="position">
+                    <param name="min">-1.57</param>
+                    <param name="max">1.57</param>
+                </command_interface>
+                <state_interface name="position" />
+            </joint>
 
-        <joint name="joint_2">
-            <command_interface name="position">
-              <param name="min">-1.57</param>
-              <param name="max">1.57</param>
-            </command_interface>
-            <state_interface name="position" />
-        </joint>
+            <joint name="joint_2">
+                <command_interface name="position">
+                    <param name="min">-1.57</param>
+                    <param name="max">1.57</param>
+                </command_interface>
+                <state_interface name="position" />
+            </joint>
 
-        <joint name="joint_3">
-            <command_interface name="position">
-              <param name="min">-1.57</param>
-              <param name="max">1.57</param>
-            </command_interface>
-            <state_interface name="position" />
-        </joint>
+            <joint name="joint_3">
+                <command_interface name="position">
+                    <param name="min">-1.57</param>
+                    <param name="max">1.57</param>
+                </command_interface>
+                <state_interface name="position" />
+            </joint>
 
-        <joint name="joint_4">
-            <command_interface name="position">
-              <param name="min">-1.57</param>
-              <param name="max">0</param>
-            </command_interface>
-            <state_interface name="position" />
-        </joint>
-  
+            <joint name="joint_4">
+                <command_interface name="position">
+                    <param name="min">-1.57</param>
+                    <param name="max">0</param>
+                </command_interface>
+                <state_interface name="position" />
+            </joint>
+        </xacro:if>
         
     </ros2_control>
 

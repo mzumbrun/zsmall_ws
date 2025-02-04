@@ -21,7 +21,7 @@ def generate_launch_description():
     # Process the URDF file
     pkg_path = os.path.join(get_package_share_directory('zsmall_description'))
     xacro_file = os.path.join(pkg_path,'urdf','smallbot.urdf.xacro')
-    doc = xacro.process_file(xacro_file, mappings={'is_sim' : 'false', 'use_ros2_control' : 'true'})
+    doc = xacro.process_file(xacro_file, mappings={'is_sim' : 'false', 'use_ros2_control' : 'true', 'use_arm' : 'false' })
     robot_description = doc.toprettyxml(indent='  ')
     
     # Create a robot_state_publisher node
