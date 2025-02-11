@@ -14,6 +14,13 @@ def generate_launch_description():
         "use_slam",
         default_value="false"
     )
+    
+    use_map = LaunchConfiguration("use_map")
+
+    use_map_arg = DeclareLaunchArgument(
+        "use_map",
+        default_value="floor2"
+    )
 
     hardware_interface = IncludeLaunchDescription(
         os.path.join(
@@ -74,6 +81,9 @@ def generate_launch_description():
             "launch",
             "global_localization.launch.py"
         ),
+        launch_arguments={
+            "map_name": use_map,
+        }.items(),
         condition=UnlessCondition(use_slam)
     )
 
@@ -91,6 +101,7 @@ def generate_launch_description():
     
     return LaunchDescription([
         use_slam_arg,
+        use_map_arg,
      #   hardware_interface,
         laser_driver,
      #   controller,
