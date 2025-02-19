@@ -38,7 +38,7 @@ def generate_launch_description():
     
     use_simple_controller_arg = DeclareLaunchArgument(
         "use_simple_controller",
-        default_value="True",
+        default_value="False",
     )
 
     wheel_radius_arg = DeclareLaunchArgument(

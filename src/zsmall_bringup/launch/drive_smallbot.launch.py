@@ -43,7 +43,7 @@ def generate_launch_description():
         os.path.join(
             get_package_share_directory("zsmall_controller"),
             "launch",
-            "controller.launch.py"
+            "controller_smallbot.launch.py"
         ),
         launch_arguments={
             "use_simple_controller": "False",
