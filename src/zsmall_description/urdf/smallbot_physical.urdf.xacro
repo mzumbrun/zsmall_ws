@@ -10,9 +10,9 @@
     <xacro:property name="caster_wheel_offset_y" value="0.095"/>
     <xacro:property name="caster_wheel_offset_z" value="${wheel_offset_z - wheel_radius + caster_wheel_radius}"/>
 
-    <xacro:property name="imu_roll" value="0.0"/>
+    <xacro:property name="imu_roll" value="3.14"/>
     <xacro:property name="imu_pitch" value="0.0"/>
-    <xacro:property name="imu_yaw" value="1.57"/>
+    <xacro:property name="imu_yaw" value="-1.57"/>
 
     <xacro:property name="lidar_roll" value="0.0"/>
     <xacro:property name="lidar_pitch" value="0.0"/>
@@ -206,7 +206,7 @@
       <material name="blue"/>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="${imu_roll} ${imu_pitch} ${imu_yaw}" />
+      <origin xyz="0 0 0" rpy="0 0 1.57" />
       <geometry>
         <mesh filename="file://$(find zsmall_description)/meshes/imu_link.STL" />
       </geometry>
