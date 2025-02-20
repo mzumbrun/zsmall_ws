@@ -9,7 +9,7 @@
 
   <!-- Include physical aspects of the robot, includes add-ons -->
   <xacro:include filename="$(find zsmall_description)/urdf/smallbot_physical.urdf.xacro" />
-  <!-- <xacro:include filename="$(find zsmall_description)/urdf/materials.xacro" /> -->
+  <xacro:include filename="$(find zsmall_description)/urdf/materials.xacro" />
 
   <xacro:if value="$(arg use_arm)">
       <xacro:include filename="$(find zsmall_description)/urdf/little_arm.urdf.xacro" />
