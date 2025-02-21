@@ -14,9 +14,10 @@
         <xacro:unless value="$(arg is_sim)">
             <hardware>
                 <plugin>zsmall_firmware/zsmallInterface</plugin>
-                <param name="port">/dev/ttyUSB0</param>
-                <param name="port2">/dev/ttyUSB1</param>
-            </hardware>
+                    <param name="port">/dev/ttyUSB0</param>
+                    <param name="port2">/dev/ttyUSB1</param>
+                <plugin>pca9685_hardware_interface/Pca9685SystemHardware</plugin>
+                </hardware>
         </xacro:unless>
         
         <!-- ros2_control Common Interfaces -->
@@ -43,13 +44,6 @@
     <xacro:if value="$(arg use_arm)">
 
         <ros2_control name="LeftArm" type="system">
-
-            <!-- ros2_control Real Robot -->
-            <xacro:unless value="$(arg is_sim)">
-                <hardware>
-                    <plugin>pca9685_hardware_interface/Pca9685SystemHardware</plugin>
-                </hardware>
-            </xacro:unless>
 
             <!-- ros2_control Common Interfaces -->
             <joint name="joint_1">
