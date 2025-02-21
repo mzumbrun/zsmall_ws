@@ -15,7 +15,7 @@ def generate_launch_description():
         default_value="false"
     )
     
-    map_name = LaunchConfiguration("use_map")
+    map_name = LaunchConfiguration("map_name")
     map_name_arg = DeclareLaunchArgument(
         "map_name",
         default_value="floor2"
@@ -53,7 +53,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             "slam_params_file": os.path.join(get_package_share_directory('zsmall_mapping'), "config", "slam_toolbox.yaml"),
-            "use_sim_time": False,
+            "use_sim_time": "False",
         }.items(),
         condition=IfCondition(use_slam)
     )
@@ -62,6 +62,6 @@ def generate_launch_description():
         use_slam_arg,
         map_name_arg,
         laser_driver,
-        localization,
+       # localization,
         jazzy_slam_toolbox_launch
     ])
