@@ -8,17 +8,16 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
+    
     use_slam = LaunchConfiguration("use_slam")
-
     use_slam_arg = DeclareLaunchArgument(
         "use_slam",
         default_value="false"
     )
     
-    use_map = LaunchConfiguration("use_map")
-
-    use_map_arg = DeclareLaunchArgument(
-        "use_map",
+    map_name = LaunchConfiguration("use_map")
+    map_name_arg = DeclareLaunchArgument(
+        "map_name",
         default_value="floor2"
     )
 
@@ -41,30 +40,28 @@ def generate_launch_description():
             "global_localization.launch.py"
         ),
         launch_arguments={
-            "map_name": use_map,
+            "map_name": map_name,
         }.items(),
         condition=UnlessCondition(use_slam)
     )
 
-    slam = IncludeLaunchDescription(
+    jazzy_slam_toolbox_launch = IncludeLaunchDescription(
         os.path.join(
-            get_package_share_directory("zsmall_mapping"),
+            get_package_share_directory("slam_toolbox"),
             "launch",
-            "slam.launch.py"
+            "online_sync_launch.py"
         ),
         launch_arguments={
-            "use_sim_time": "False",
+            "slam_params_file": os.path.join(get_package_share_directory('zsmall_mapping'), "config", "slam_toolbox.yaml"),
+            "use_sim_time": False,
         }.items(),
         condition=IfCondition(use_slam)
     )
     
     return LaunchDescription([
         use_slam_arg,
-        use_map_arg,
+        map_name_arg,
         laser_driver,
-     #   controller,
-     #   joystick,
-     #   safety_stop,
-# localization,
-        slam
+        localization,
+        jazzy_slam_toolbox_launch
     ])

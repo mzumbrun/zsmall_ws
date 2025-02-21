@@ -10,6 +10,10 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     
+    lifecycle_nodes = ["map_saver_server"]
+    free_thresh_default = 0.25
+    occupied_thresh_default = 0.65
+    
     pkg_description = get_package_share_directory('zsmall_description')
     pkg_localization = get_package_share_directory('zsmall_localization')
     pkg_mapping = get_package_share_directory('zsmall_mapping')
@@ -79,7 +83,8 @@ def generate_launch_description():
         parameters=[
             os.path.join(pkg_localization, 'config', 'ekf.yaml'),
             {'use_sim_time': False}
-             ]
+             ],
+        condition=IfCondition(use_map)
     )
     
     rviz_slam = Node(
@@ -96,6 +101,20 @@ def generate_launch_description():
         condition=IfCondition(use_slam)
     )
     
+    nav2_map_saver = Node(
+        package="nav2_map_server",
+        executable="map_saver_server",
+        name="map_saver_server",
+        output="screen",
+        parameters=[
+            {"save_map_timeout": 5.0},
+            {"use_sim_time": False},
+            {"free_thresh_default": free_thresh_default},
+            {"occupied_thresh_default": occupied_thresh_default},
+        ],
+    )
+
+    
     nav_given_map = IncludeLaunchDescription(
         os.path.join(
             pkg_mapping,
@@ -109,6 +128,17 @@ def generate_launch_description():
         condition=IfCondition(use_map)
     )
 
+    nav2_lifecycle_manager = Node(
+        package="nav2_lifecycle_manager",
+        executable="lifecycle_manager",
+        name="lifecycle_manager_slam",
+        output="screen",
+        parameters=[
+            {"node_names": lifecycle_nodes},
+            {"use_sim_time": False},
+            {"autostart": True}
+        ],
+    )
     
     return LaunchDescription([
         use_slam_arg,
@@ -121,5 +151,7 @@ def generate_launch_description():
         world_arg,
     #    safety_stop,
         rviz_slam,
+        nav2_map_saver,
         nav_given_map,
+        nav2_lifecycle_manager,
     ])
