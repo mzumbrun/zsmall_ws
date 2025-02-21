@@ -22,59 +22,18 @@ def generate_launch_description():
         default_value="floor2"
     )
 
-    hardware_interface = IncludeLaunchDescription(
-        os.path.join(
-            get_package_share_directory("zsmall_firmware"),
-            "launch",
-            "hardware_interface_smallbot.launch.py"
-        ),
-    )
-
     laser_driver = Node(
             package="rplidar_ros",
             executable="rplidar_composition",
-           # name="rplidar_composition",
-            output="screen",
-            parameters=[{
-                'channel_type': 'serial',
-                'serial_port': '/dev/ttyUSB0',
-                'serial_baudrate': 115200,
-                'frame_id': 'laser_frame',
-                'angle_compensate': True,
-                'inverted': False,
-                'scan_mode': 'Standard'
-            }],         
-
-    )
-    
-    controller = IncludeLaunchDescription(
-        os.path.join(
-            get_package_share_directory("zsmall_controller"),
-            "launch",
-            "controller.launch.py"
-        ),
-        launch_arguments={
-            "use_simple_controller": "False",
-        }.items(),
-    )
-    
-    joystick = IncludeLaunchDescription(
-        os.path.join(
-            get_package_share_directory("zsmall_controller"),
-            "launch",
-            "joystick_teleop.launch.py"
-        ),
-        launch_arguments={
-            "use_sim_time": "False"
-        }.items()
-    )
-
-    safety_stop = Node(
-        package="zsmall_utils",
-        executable="safety_stop",
-        output="screen",
-    )
-
+            name="rplidar_composition",
+            parameters=[os.path.join(
+                get_package_share_directory("zsmall_bringup"),
+                "config",
+                "rplidar_a1.yaml"
+            )],
+            output="screen"
+    ) 
+       
     localization = IncludeLaunchDescription(
         os.path.join(
             get_package_share_directory("zsmall_localization"),
@@ -102,11 +61,10 @@ def generate_launch_description():
     return LaunchDescription([
         use_slam_arg,
         use_map_arg,
-     #   hardware_interface,
         laser_driver,
      #   controller,
      #   joystick,
      #   safety_stop,
-      #  localization,
-     #   slam
+# localization,
+        slam
     ])

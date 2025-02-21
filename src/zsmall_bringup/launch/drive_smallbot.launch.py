@@ -8,12 +8,6 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-    use_slam = LaunchConfiguration("use_slam")
-
-    use_slam_arg = DeclareLaunchArgument(
-        "use_slam",
-        default_value="false"
-    )
 
     hardware_interface = IncludeLaunchDescription(
         os.path.join(
@@ -27,18 +21,7 @@ def generate_launch_description():
         }.items(),
     )
 
-    laser_driver = Node(
-            package="rplidar_ros",
-            executable="rplidar_composition",
-            name="rplidar_composition",
-            parameters=[os.path.join(
-                get_package_share_directory("zsmall_bringup"),
-                "config",
-                "rplidar_a1.yaml"
-            )],
-            output="screen"
-    )
-    
+   
     controller = IncludeLaunchDescription(
         os.path.join(
             get_package_share_directory("zsmall_controller"),
@@ -72,25 +55,7 @@ def generate_launch_description():
         executable="safety_stop.py",
         output="screen",
     )
-
-    localization = IncludeLaunchDescription(
-        os.path.join(
-            get_package_share_directory("zsmall_localization"),
-            "launch",
-            "global_localization.launch.py"
-        ),
-        condition=UnlessCondition(use_slam)
-    )
-
-    slam = IncludeLaunchDescription(
-        os.path.join(
-            get_package_share_directory("zsmall_mapping"),
-            "launch",
-            "slam.launch.py"
-        ),
-        condition=IfCondition(use_slam)
-    )
-    
+   
     moveit = IncludeLaunchDescription(
             os.path.join(
                 get_package_share_directory("zsmall_moveit"),
@@ -110,15 +75,11 @@ def generate_launch_description():
         )
     
     return LaunchDescription([
-        use_slam_arg,
         hardware_interface,
-     #   laser_driver,
         controller,
      #   joystick,
         imu_driver_node,
       #  safety_stop,
-     #   localization,
-     #   slam,
      #   moveit,
      #   remote_interface,
     ])
