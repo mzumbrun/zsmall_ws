@@ -21,10 +21,8 @@ def noisy_controller(context, *args, **kwargs):
              "use_sim_time": use_sim_time}],
     )
 
-
     return [
         noisy_controller_py,
-
     ]
 
 

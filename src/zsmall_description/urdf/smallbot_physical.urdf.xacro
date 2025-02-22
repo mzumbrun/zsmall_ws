@@ -206,7 +206,7 @@
       <material name="blue"/>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 1.57" />
+      <origin xyz="0 0 0" rpy="${imu_roll} ${imu_pitch} ${imu_yaw}"  />
       <geometry>
         <mesh filename="file://$(find zsmall_description)/meshes/imu_link.STL" />
       </geometry>

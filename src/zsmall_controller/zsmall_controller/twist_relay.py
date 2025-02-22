@@ -36,7 +36,6 @@ class TwistRelayNode(Node):
             10
         )
 
-
     def controller_twist_callback(self, msg):
         twist_stamped = TwistStamped()
         twist_stamped.header.stamp = self.get_clock().now().to_msg()
