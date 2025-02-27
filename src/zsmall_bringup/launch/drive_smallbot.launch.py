@@ -8,10 +8,14 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
+    
+    pkg_controller = get_package_share_directory('zbig_controller')
+    pkg_firmware = get_package_share_directory('zbig_firmware')
+    pkg_localization = get_package_share_directory('zbig_localization')   
 
     hardware_interface = IncludeLaunchDescription(
         os.path.join(
-            get_package_share_directory("zsmall_firmware"),
+            pkg_firmware,
             "launch",
             "hardware_interface_smallbot.launch.py"
         ),
@@ -24,7 +28,7 @@ def generate_launch_description():
    
     controller = IncludeLaunchDescription(
         os.path.join(
-            get_package_share_directory("zsmall_controller"),
+            pkg_controller,
             "launch",
             "controller_smallbot.launch.py"
         ),
@@ -36,7 +40,7 @@ def generate_launch_description():
     
     joystick = IncludeLaunchDescription(
         os.path.join(
-            get_package_share_directory("zsmall_controller"),
+            pkg_controller,
             "launch",
             "joystick_teleop.launch.py"
         ),
@@ -48,6 +52,18 @@ def generate_launch_description():
     imu_driver_node = Node(
         package="zsmall_firmware",
         executable="mpu6050_driver.py"
+    )
+    
+        
+    ekf_node = Node(
+        package='robot_localization',
+        executable='ekf_node',
+        name='ekf_filter_node',
+        output='screen',
+        parameters=[
+            os.path.join(pkg_localization, 'config', 'ekf.yaml'),
+            {'use_sim_time': False}
+             ]
     )
 
     safety_stop = Node(
@@ -79,6 +95,7 @@ def generate_launch_description():
         controller,
      #   joystick,
         imu_driver_node,
+     #   ekf_node,
       #  safety_stop,
      #   moveit,
      #   remote_interface,
