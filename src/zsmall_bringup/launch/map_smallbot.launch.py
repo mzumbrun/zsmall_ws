@@ -25,11 +25,15 @@ def generate_launch_description():
             package="rplidar_ros",
             executable="rplidar_composition",
             name="rplidar_composition",
-            parameters=[os.path.join(
-                get_package_share_directory("zsmall_bringup"),
-                "config",
-                "rplidar_a1.yaml"
-            )],
+            parameters=[{
+                'channel_type': 'serial',
+                'serial_port': '/dev/rplidar',
+                'serial_baudrate': 115200,
+                'frame_id': 'laser_frame',
+                'angle_compensate': True,
+                'inverted': False,
+                'scan_mode': 'Standard'
+            }],
             output="screen"
     ) 
        

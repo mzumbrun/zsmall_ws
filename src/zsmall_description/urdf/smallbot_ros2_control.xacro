@@ -14,8 +14,8 @@
         <xacro:unless value="$(arg is_sim)">
             <hardware>
                 <plugin>zsmall_firmware/zsmallInterface</plugin>
-                    <param name="port">/dev/ttyUSB0</param>
-                    <param name="port2">/dev/ttyUSB1</param>
+                    <param name="port">/dev/left_wheel</param>
+                    <param name="port2">/dev/right_wheel</param>
                 <plugin>pca9685_hardware_interface/Pca9685SystemHardware</plugin>
                 </hardware>
         </xacro:unless>

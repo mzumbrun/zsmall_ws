@@ -9,9 +9,9 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     
-    pkg_controller = get_package_share_directory('zbig_controller')
-    pkg_firmware = get_package_share_directory('zbig_firmware')
-    pkg_localization = get_package_share_directory('zbig_localization')   
+    pkg_controller = get_package_share_directory('zsmall_controller')
+    pkg_firmware = get_package_share_directory('zsmall_firmware')
+    pkg_localization = get_package_share_directory('zsmall_localization')   
 
     hardware_interface = IncludeLaunchDescription(
         os.path.join(
