@@ -64,8 +64,8 @@ zsmall_controller:
     pose_covariance_diagonal : [0.001, 0.001, 1.0e-3, 1.0e-3, 1.0e-3, 0.01]
     twist_covariance_diagonal: [0.001, 0.001, 1.0e-3, 1.0e-3, 1.0e-3, 0.01]
 
-    wheel_separation : 0.282
-    wheel_radius : 0.033
+    wheel_separation : 0.320
+    wheel_radius : 0.0335
 
     wheel_separation_multiplier: 1.0
     left_wheel_radius_multiplier: 1.0
@@ -91,8 +91,8 @@ zsmall_controller:
     linear:
       x:
         has_velocity_limits    : true
-        max_velocity           : 0.2  # m/s was 0.7
-        min_velocity           : -0.2 # m/s was -0.7
+        max_velocity           : 0.5  # m/s was 0.7
+        min_velocity           : -0.5 # m/s was -0.7
         has_acceleration_limits: true
         max_acceleration       : 0.2  # m/s^2
         min_acceleration       : -0.2 # m/s^2
