@@ -5,5 +5,6 @@ log/
 *.swp
 src/zsmall_firmware/firmware/tools/PID_tune2/arduino_secrets.h
 src/zsmall_firmware/firmware/smallbot_motors/smallbot_adc_mqtt/arduino_secrets.h
+src/zsmall_firmware/firmware/smallbot_motors/smallbot_control_ADC_WIFI_6Mar2025/smallbot_firmware_parameters.h
 src/zsmall_utils/zsmall_utils/test_left.py
 src/zsmall_utils/zsmall_utils/test_right.py

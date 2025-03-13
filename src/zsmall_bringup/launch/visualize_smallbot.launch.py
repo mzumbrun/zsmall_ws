@@ -147,7 +147,7 @@ def generate_launch_description():
         world_arg,
         world_launch,
         gz_bridge_node,
-        ekf_node,
+      #  ekf_node,
         world_arg,
     #    safety_stop,
         rviz_slam,

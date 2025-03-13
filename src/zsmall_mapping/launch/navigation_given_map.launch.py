@@ -11,6 +11,11 @@ def generate_launch_description():
 
     pkg_mapping = get_package_share_directory('zsmall_mapping')
     pkg_localization = get_package_share_directory('zsmall_localization')
+    
+    use_sim_time_arg = DeclareLaunchArgument(name="use_sim_time", default_value="True",
+                                      description="Use simulated time"
+    )
+    use_sim_time = LaunchConfiguration("use_sim_time")
 
     map_name = LaunchConfiguration("map_name")
     map_name_arg = DeclareLaunchArgument(
@@ -72,7 +77,7 @@ def generate_launch_description():
         arguments=['-d', PathJoinSubstitution([pkg_mapping, 'rviz', LaunchConfiguration('rviz_config')])],
         condition=IfCondition(LaunchConfiguration('rviz')),
         parameters=[
-            {'use_sim_time': True},
+            {'use_sim_time': use_sim_time},
         ]
     )
 
@@ -87,7 +92,7 @@ def generate_launch_description():
     localization_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(nav2_localization_launch_path),
         launch_arguments={
-                'use_sim_time': "True",
+                'use_sim_time': use_sim_time,
                 'params_file': localization_params_path,
                 'map': map_file_path,
         }.items()
@@ -96,13 +101,14 @@ def generate_launch_description():
     navigation_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(nav2_navigation_launch_path),
         launch_arguments={
-                'use_sim_time': "True",
+                'use_sim_time': use_sim_time,
                 'params_file': navigation_params_path,
         }.items()
     )
 
     return LaunchDescription([
             rviz_launch_arg,
+            use_sim_time_arg,
             map_name_arg,
             rviz_config_arg,
             rviz_node,

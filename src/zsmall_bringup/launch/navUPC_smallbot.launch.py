@@ -13,6 +13,9 @@ def generate_launch_description():
     pkg_description = get_package_share_directory('zsmall_description')
     pkg_localization = get_package_share_directory('zsmall_localization')
     pkg_mapping = get_package_share_directory('zsmall_mapping')
+    
+    use_sim_time_arg = DeclareLaunchArgument(name="use_sim_time", default_value="False")
+    use_sim_time = LaunchConfiguration("use_sim_time")
 
     use_slam = LaunchConfiguration("use_slam")
     use_slam_arg = DeclareLaunchArgument("use_slam",
@@ -56,7 +59,7 @@ def generate_launch_description():
         ],
         output="screen",
         parameters=[
-            {'use_sim_time': False}
+            {'use_sim_time': use_sim_time}
         ],
         remappings=[
             ('/imu', '/imu/out'),
@@ -78,7 +81,7 @@ def generate_launch_description():
         package="zsmall_utils",
         executable="safety_stop.py",
         output="screen",
-        parameters=[{"use_sim_time": False}],
+        parameters=[{"use_sim_time": use_sim_time}],
         condition=IfCondition(use_safety_stop)
     )
 
@@ -101,7 +104,7 @@ def generate_launch_description():
             )
         ],
         output="screen",
-        parameters=[{"use_sim_time": False}],
+        parameters=[{"use_sim_time": use_sim_time}],
         condition=IfCondition(use_slam)
     )
 
@@ -112,7 +115,7 @@ def generate_launch_description():
             "navigation_given_map.launch.py"
         ),
         launch_arguments={
-            "use_sim_time": "False",
+            "use_sim_time": use_sim_time,
             "map_name": map_name,
         }.items(),
         condition=IfCondition(use_map)
@@ -125,13 +128,14 @@ def generate_launch_description():
             "navigation_with_slam.launch.py"
         ),
         launch_arguments={
-            "use_sim_time": "False",
+            "use_sim_time": use_sim_time,
         }.items(),
         condition=IfCondition(navslam)
     )
 
     
     return LaunchDescription([
+        use_sim_time_arg,
         use_slam_arg,
         navslam_arg,
         use_map_arg,

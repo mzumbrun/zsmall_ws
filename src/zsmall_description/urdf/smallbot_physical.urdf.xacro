@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <robot name="zsmall" xmlns:xacro="http://ros.org/wiki/xacro">
 
+    <xacro:property name="robot_pitch" value="-0.02618"/>
+    
     <xacro:property name="wheel_radius" value="0.0335"/>
     <xacro:property name="wheel_offset_y" value="0.160"/>
     <xacro:property name="wheel_offset_z" value="0.0"/>
@@ -55,7 +57,7 @@
    <joint name="base_joint" type="fixed">
     <parent link="base_footprint"/>
     <child link="base_link" />
-    <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0"/>
+    <origin xyz="0 0 ${wheel_radius}" rpy="0 ${robot_pitch} 0"/>
   </joint>
 
 
