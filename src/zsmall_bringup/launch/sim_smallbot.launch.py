@@ -261,7 +261,7 @@ def generate_launch_description():
         spawn_urdf_node,
         gz_bridge_node,
         robot_state_publisher_node,
-        ekf_node,
+    #   ekf_node,
         world_arg,
         controller,
         joystick,

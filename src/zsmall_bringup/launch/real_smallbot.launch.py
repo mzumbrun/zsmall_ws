@@ -112,7 +112,7 @@ def generate_launch_description():
      #   joystick,
         imu_driver_node,
         laser_driver,
-        ekf_node,
+      #  ekf_node,
       #  safety_stop,
      #   moveit,
      #   remote_interface,
